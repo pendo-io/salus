@@ -61,9 +61,6 @@
       "BundleAudit": {
         "pass_on_raise": false
       },
-      "CargoAudit": {
-        "pass_on_raise": false
-      },
       "Gosec": {
         "pass_on_raise": false
       },
@@ -83,9 +80,6 @@
         "pass_on_raise": false
       },
       "ReportRubyGems": {
-        "pass_on_raise": false
-      },
-      "ReportRustCrates": {
         "pass_on_raise": false
       },
       "Semgrep": {

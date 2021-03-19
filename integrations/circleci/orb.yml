@@ -5,7 +5,7 @@ description: "Salus security scanner coordinator (SAST)"
 executors:
   salus:
     docker:
-      - image: coinbase/salus:latest
+      - image: gcr.io/pendo-security/salus:latest
 jobs:
   scan:
     executor: << parameters.salus_executor >>
