@@ -9,6 +9,10 @@ jobs:
       - run: docker run salus-tests
       - run: bin/integration_test
   salus:
+    parameters:
+      key_json:
+        type: string
+        description: "value of Google Cloud key json"
     machine: true
     steps:
       - checkout
