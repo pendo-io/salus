@@ -11,11 +11,7 @@ jobs:
       - run: docker run salus-tests
       - run: bin/integration_test
   salus:
-    docker:
-      - image: gcr.io/pendo-security/salus:latest
-        auth:
-          username: _json_key
-          password: $GCR_JSON_KEY_FILE
+    machine: true
     steps:
       - checkout
       - attach_workspace:
