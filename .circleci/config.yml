@@ -9,7 +9,7 @@ jobs:
       - run: docker run salus-tests
       - run: bin/integration_test
   salus:
-    context: core-dev
+    context: pendo-dev-gcr-access
     machine: true
     steps:
       - checkout
