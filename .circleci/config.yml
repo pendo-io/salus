@@ -1,6 +1,4 @@
 version: 2.1
-orbs:
-  gcp-gcr: circleci/gcp-gcr@0.12.0
 jobs:
   tests:
     machine: true
@@ -12,11 +10,14 @@ jobs:
       - run: bin/integration_test
   salus:
     machine: true
+    context: pendo-dev-gcr-access
     steps:
-      - attach_workspace:
-          at: ~/pendo-io/pendo-appengine
-      - gcp-gcr/gcr-auth
       - checkout
+      - run:
+          name: prepare gcloud credentials
+          command: |
+            echo $GCR_JSON_KEY_FILE > "gcloud_key_file.json";
+            gcloud auth activate-service-account --key-file=gcloud_key_file.json
       - run: docker run -t -v $(pwd):/home/repo gcr.io/pendo-security/salus:latest
   rubocop:
     docker:
