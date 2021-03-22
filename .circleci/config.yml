@@ -9,7 +9,6 @@ jobs:
       - run: docker run salus-tests
       - run: bin/integration_test
   salus:
-    context: pendo-dev-gcr-access
     machine: true
     steps:
       - checkout
@@ -34,4 +33,6 @@ workflows:
     jobs:
       - tests
       - rubocop
-      - salus
+      - salus:
+        context:
+          - pendo-dev-gcr-access
