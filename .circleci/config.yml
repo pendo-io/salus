@@ -13,11 +13,12 @@ jobs:
     steps:
       - checkout
       - run: docker run -t -v $(pwd):/home/repo gcr.io/pendo-security/salus:latest
-  docker:
-    - image: gcr.io/pendo-security/salus:latest
-      auth:
-        username: _json_key
-        password: $GCR_JSON_KEY_FILE
+  build:
+    docker:
+      - image: gcr.io/pendo-security/salus:latest
+        auth:
+          username: _json_key
+          password: $GCR_JSON_KEY_FILE
   rubocop:
     docker:
       - image: ruby:2.7.2@sha256:0fee695f3bf397bb521d8ced9e30963835fac44bc27f46393a5b91941c8a40aa
@@ -34,5 +35,5 @@ workflows:
     jobs:
       - tests
       - rubocop
-      - docker
+      - build
       - salus
