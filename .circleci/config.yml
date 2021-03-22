@@ -10,7 +10,7 @@ jobs:
       - run: bin/integration_test
   salus:
     machine: true
-    context: pendo-dev-gcr-access
+    context: pendo-gcp-dev
     steps:
       - checkout
       - run:
