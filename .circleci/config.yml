@@ -13,7 +13,7 @@ jobs:
   salus:
     steps:
       - attach_workspace:
-        at: ~/pendo-io/pendo-appengine
+          at: ~/pendo-io/pendo-appengine
       - gcp-gcr/gcr-auth
       - checkout
       - run: docker run -t -v $(pwd):/home/repo gcr.io/pendo-security/salus:latest
