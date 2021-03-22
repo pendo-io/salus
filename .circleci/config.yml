@@ -10,14 +10,9 @@ jobs:
       - run: bin/integration_test
   salus:
     machine: true
-    context: pendo-gcp-dev
+    context: pendo-dev-gcr-access
     steps:
       - checkout
-      - run:
-          name: prepare gcloud credentials
-          command: |
-            echo $GCR_JSON_KEY_FILE > "gcloud_key_file.json";
-            gcloud auth activate-service-account --key-file=gcloud_key_file.json
       - run: docker run -t -v $(pwd):/home/repo gcr.io/pendo-security/salus:latest
   rubocop:
     docker:
