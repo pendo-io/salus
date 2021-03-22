@@ -9,7 +9,7 @@ jobs:
       - run: docker run salus-tests
       - run: bin/integration_test
   salus:
-    context: pendo-dev-gcr-access
+    context: pendo-gcp-dev
     docker:
       - image: gcr.io/pendo-security/salus:latest
         auth:
