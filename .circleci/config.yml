@@ -34,5 +34,5 @@ workflows:
       - tests
       - rubocop
       - salus:
-        context:
+          context:
           - pendo-dev-gcr-access
