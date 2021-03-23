@@ -15,9 +15,9 @@ jobs:
       - run:
           name: prepare gcloud credentials
           command: |
+            gcloud components update
             echo $GCR_JSON_KEY_FILE > "gcloud_key_file.json";
             gcloud auth activate-service-account --key-file=gcloud_key_file.json
-            gcloud components update
             gcloud auth configure-docker
       - run: docker run -t -v $(pwd):/home/repo gcr.io/pendo-security/salus:latest
   rubocop:
