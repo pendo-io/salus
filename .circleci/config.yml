@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   tests:
     machine: true
@@ -15,7 +15,6 @@ jobs:
       - run:
           name: prepare gcloud credentials
           command: |
-            rm ~/.docker/config.json
             echo $GCR_JSON_KEY_FILE > "gcloud_key_file.json";
             gcloud auth activate-service-account --key-file=gcloud_key_file.json
       - run: docker run -t -v $(pwd):/home/repo gcr.io/pendo-security/salus:latest
@@ -29,7 +28,7 @@ jobs:
       - run: bundle install
       - run: bundle exec rubocop
 workflows:
-  version: 2
+  version: 2.1
   build:
     jobs:
       - tests
