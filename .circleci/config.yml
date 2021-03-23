@@ -15,8 +15,9 @@ jobs:
       - run:
           name: prepare gcloud credentials
           command: |
-            echo $GCR_JSON_KEY_FILE > "gcloud_key_file.json";
-            gcloud auth activate-service-account --key-file=gcloud_key_file.json
+            echo $GCLOUD_SERVICE_KEY | gcloud auth activate-service-account --key-file=-
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
       - run: docker run -t -v $(pwd):/home/repo gcr.io/pendo-security/salus:latest
   rubocop:
     docker:
@@ -35,4 +36,4 @@ workflows:
       - rubocop
       - salus:
           context:
-          - pendo-dev-gcr-access
+          - core-dev
