@@ -6,9 +6,9 @@ executors:
   salus:
     docker:
       - image: gcr.io/pendo-security/salus:latest
-        auth:
-          username: _json_key
-          password: $GCR_JSON_KEY_FILE
+        # auth:
+        #   username: _json_key
+        #   password: $GCR_JSON_KEY_FILE
 jobs:
   scan:
     executor: << parameters.salus_executor >>
