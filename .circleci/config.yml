@@ -8,17 +8,17 @@ jobs:
       - run: docker build -f Dockerfile.tests -t salus-tests .
       - run: docker run salus-tests
       - run: bin/integration_test
-  salus:
-    machine:
-      image: ubuntu-1604:201903-01
-    steps:
-      - checkout
-      - run:
-          name: prepare gcloud credentials
-          command: |
-            echo $GCR_JSON_KEY_FILE > "gcloud_key_file.json";
-            gcloud auth activate-service-account --key-file=gcloud_key_file.json
-      - run: docker run -t -v $(pwd):/home/repo gcr.io/pendo-security/salus:latest
+  # salus:
+  #   machine:
+  #     image: ubuntu-1604:201903-01
+  #   steps:
+  #     - checkout
+  #     - run:
+  #         name: prepare gcloud credentials
+  #         command: |
+  #           echo $GCR_JSON_KEY_FILE > "gcloud_key_file.json";
+  #           gcloud auth activate-service-account --key-file=gcloud_key_file.json
+  #     - run: docker run -t -v $(pwd):/home/repo gcr.io/pendo-security/salus:latest
   rubocop:
     docker:
       - image: ruby:2.7.2@sha256:0fee695f3bf397bb521d8ced9e30963835fac44bc27f46393a5b91941c8a40aa
@@ -34,6 +34,6 @@ workflows:
     jobs:
       - tests
       - rubocop
-      - salus:
-          context:
-          - pendo-dev-gcr-access
+      # - salus:
+      #     context:
+      #     - pendo-dev-gcr-access
