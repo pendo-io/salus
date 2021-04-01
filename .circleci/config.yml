@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   tests:
     machine: true
@@ -9,10 +9,17 @@ jobs:
       - run: docker run salus-tests
       - run: bin/integration_test
   salus:
-    machine: true
+    machine:
+      image: ubuntu-1604:201903-01
     steps:
       - checkout
-      - run: docker run -t -v $(pwd):/home/repo coinbase/salus
+      - run:
+          name: prepare gcloud credentials
+          command: |
+            echo $GCLOUD_SERVICE_KEY > "gcloud_key_file.json";
+            gcloud auth activate-service-account --key-file=gcloud_key_file.json
+            gcloud auth configure-docker
+      - run: docker run -t -v $(pwd):/home/repo gcr.io/pendo-dev/salus:latest
   rubocop:
     docker:
       - image: ruby:2.7.2@sha256:0fee695f3bf397bb521d8ced9e30963835fac44bc27f46393a5b91941c8a40aa
@@ -22,11 +29,12 @@ jobs:
       - run: gem install bundler -v'2.0.2'
       - run: bundle install
       - run: bundle exec rubocop
-
 workflows:
-  version: 2
+  version: 2.1
   build:
     jobs:
       - tests
       - rubocop
-      - salus
+      - salus:
+          context:
+          - core-dev
