@@ -2,10 +2,7 @@
 version: 2.1
 description: "Salus security scanner coordinator (SAST)"
 
-executors:
-  salus:
-    docker:
-      - image: coinbase/salus:latest
+
 jobs:
   scan:
     executor: << parameters.salus_executor >>
@@ -94,40 +91,8 @@ jobs:
           path: /home/salus-report.json
 
 examples:
-  blocking_scan:
-    description: A Salus scan that blocks on any potential vulnerabilities
-    usage:
-      version: 2.1
-      orbs:
-        salus: federacy/salus@3.0.0
-      workflows:
-        salus_scan:
-          jobs: 
-            - salus/scan
-  non_blocking_scan:
-    description: A Salus scan that does not block on potential vulnerabilities
-    usage:
-      version: 2.1
-      orbs:
-        salus: federacy/salus@3.0.0
-      workflows:
-        salus_scan:
-          jobs: 
-            - salus/scan:
-                enforced_scanners: "none"
-  specify_scanners:
-    description: A Salus scan using specific scanners
-    usage:
-      version: 2.1
-      orbs:
-        salus: federacy/salus@3.0.0
-      workflows:
-        salus_scan:
-          jobs: 
-            - salus/scan:
-                active_scanners: "\n    - Brakeman"
   specify_executor_scan:
-    description: A Salus scan that blocks on any potential vulnerabilities
+    description: A Salus scan that runs with a specific executor
     usage:
       version: 2.1
       orbs:
